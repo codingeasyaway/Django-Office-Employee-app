@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} {{title}} - Employees {% endblock title %}
+{% block content %}
+
+{% ifequal update_msg "ok" %}
+<script>
+    alert('Update employee succussfully!');
+    window.location.href = '{% url "index" %}';
+</script>
+{% endifequal %}
+{% ifequal update_msg "no" %}
+<script>
+    alert('Not Update data, please try again!');
+</script>
+{% endifequal %}
+
+<div class="container mt-4">
+<h2 id="text" class="my-3 text-center">Add Employees</h2>
+
+<div class="card mx-auto col-8 my-4" >
+    <form action="/update-employee/{{data.id}}" method="post" class="">{% csrf_token %}
+        <input type="hidden" name="id" value="{{data.id}}">
+        <table class="" cellpadding="15" >
+            <tr class="">
+                <th>First Name : </th>
+                <td><input type="text" class="form-control" value="{{data.first_name}}" required name="first_name"  placeholder="Enter first name"></td>
+                <th>Last Name : </th>
+                <td><input type="text" class="form-control" value="{{data.last_name}}" required name="last_name" placeholder="Enter last name"></td>
+            </tr>
+            <tr>
+                <th>Salary  : </th>
+                <td><input type="number" class="form-control" value="{{data.salary}}" name="salary" placeholder="Enter employee salary" required></td>
+                <th>Bonus : </th>
+                <td><input type="number" class="form-control" value="{{data.bonus}}" name="bonus" placeholder="Enter employee bonus" required></td>
+            </tr>
+            <tr>
+                <th>Phone No  : </th>
+                <td colspan="3"><input type="number" class="form-control" value="{{data.phone}}" name="phone" placeholder="Enter employee phone number" required></td>
+
+            </tr>
+
+            <tr>
+                <th colspan="4"><input type="submit" value="Update Employee" class="btn col-12 btn-warning"></th>
+            </tr>
+        </table>
+
+
+
+    </form>
+
+
+</div>
+</div>
+{% endblock content %}
